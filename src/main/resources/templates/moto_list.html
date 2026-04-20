@@ -22,10 +22,13 @@
                 <div class="mb-3">
                     <label for="brand" class="form-label">バイクメーカー</label>
                     <select class="form-select" id="brand" aria-label="Default select example">
-                        <option selected>Honda</option>
+                        <!-- <option selected>Honda</option>
                         <option value="1">Kawasaki</option>
                         <option value="2">Yamaha</option>
-                        <option value="3">Suzuki</option>
+                        <option value="3">Suzuki</option> -->
+
+                        <option th:each="brand : ${brands}" th:value="${brand.brandId}" th:text="${brand.brandName}">
+                        </option>
                     </select>
                 </div>
             </div>
@@ -57,29 +60,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Honda</td>
-                            <td>CBR600RR</td>
-                            <td>600cc</td>
-                            <td>¥500,000</td>
-                            <td>良いバイクです。</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Kawasaki</td>
-                            <td>Ninja ZX-14R</td>
-                            <td>1,400cc</td>
-                            <td>¥1,200,000</td>
-                            <td>高性能です。</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Yamaha</td>
-                            <td>YZF-R1</td>
-                            <td>1,000cc</td>
-                            <td>¥1,000,000</td>
-                            <td>スポーツバイクの代表格。</td>
+                        <tr th:each="motorcycle : ${motorcycles}">
+                            <th scope="row" th:text="${motorcycle.motoNo}"></th>
+                            <td th:text="${motorcycle.brandId}"></td>
+                            <td th:text="${motorcycle.motoName}"></td>
+                            <td th:text="${motorcycle.cylinder}"></td>
+                            <td th:text="|¥${#numbers.formatInteger(motorcycle.price, 3, 'COMMA')}|"></td>
+                            <td th:text="${motorcycle.comment}"></td>
                         </tr>
                     </tbody>
                 </table>
