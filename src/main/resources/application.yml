@@ -1,0 +1,13 @@
+# spring.application.name=motocatalog
+# logging.level.root=debug
+# logging.file.name=app.log
+# logging.logback.rollingpolicy.max-file-size = 1MB
+
+logging:
+  level:
+    root: debug
+  file:
+    name: app.log
+  logback:
+    rollingpolicy:
+      max-file-size: 1MB
