@@ -3,6 +3,9 @@ package ooo.klae.sample.motocatalog.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -13,7 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@Slf4j
 public class MotosController {
+
+    // private static final Logger log = LoggerFactory.getLogger(MotosController.class);
 
     @RequestMapping("/hello")
     public String hello(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
@@ -38,6 +44,8 @@ public class MotosController {
 
         model.addAttribute("brands", brands);
         model.addAttribute("motorcycles", motorcycles);
+
+        log.info("motorcycles: {}", motorcycles);
 
         return "moto_list";
     }
