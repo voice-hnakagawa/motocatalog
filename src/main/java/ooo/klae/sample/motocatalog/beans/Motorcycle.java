@@ -1,4 +1,4 @@
-package ooo.klae.sample.bean;
+package ooo.klae.sample.motocatalog.beans;
 
 import java.time.LocalDateTime;
 
@@ -14,10 +14,10 @@ public class Motorcycle {
     private String motoName;
     private int seatHeight;
     private int cylinder;
-    private int cooling;
+    private String cooling;
     private int price;
     private String comment;
-    private String brandId;
+    private Brand brandId;
     private int version;
     private LocalDateTime insDt;
     // private String insDt;

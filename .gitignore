@@ -37,3 +37,6 @@ out/
 .vscode/
 
 app.log
+*.log
+*.log.*
+logs/

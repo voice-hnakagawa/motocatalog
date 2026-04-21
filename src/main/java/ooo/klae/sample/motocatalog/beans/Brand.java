@@ -1,4 +1,4 @@
-package ooo.klae.sample.bean;
+package ooo.klae.sample.motocatalog.beans;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
