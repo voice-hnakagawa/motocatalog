@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ooo.klae.sample.motocatalog.mappers.BrandMapper">
+    <resultMap id="brandResultMap" type="ooo.klae.sample.motocatalog.beans.Brand">
+        <id property="brandId" column="brand_id"/>
+        <result property="brandName" column="brand_name"/>
+    </resultMap>
+  <select id="selectAll" resultMap="brandResultMap">
+    SELECT
+      brand_id,
+      brand_name
+    FROM
+      m_brand
+    ORDER BY
+      brand_id
+  </select>
+</mapper>

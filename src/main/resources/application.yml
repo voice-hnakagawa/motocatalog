@@ -11,3 +11,21 @@ logging:
   logback:
     rollingpolicy:
       max-file-size: 1MB
+
+spring:
+    datasource:
+        url: jdbc:mysql://localhost:3306/motocatalogdb?useSSL=false&serverTimezone=UTC
+        username: develop
+        password: develop
+    jpa:
+        hibernate:
+            ddl-auto: create-drop
+    sql:
+        init:
+            mode: always
+            encoding: UTF-8
+            # enabled: true
+
+mybatis:
+    configuration:
+        map-underscore-to-camel-case: true

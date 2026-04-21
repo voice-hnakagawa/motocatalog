@@ -1,23 +1,28 @@
 package ooo.klae.sample.motocatalog.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
+import ooo.klae.sample.motocatalog.beans.Brand;
+import ooo.klae.sample.motocatalog.beans.Motorcycle;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import ooo.klae.sample.bean.Brand;
-import ooo.klae.sample.bean.Motorcycle;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import ooo.klae.sample.motocatalog.services.MotosService;
 
 @Controller
 @Slf4j
 public class MotosController {
+
+    @Autowired
+    MotosService service;
 
     // private static final Logger log = LoggerFactory.getLogger(MotosController.class);
 
@@ -31,16 +36,10 @@ public class MotosController {
     public String motos(Model model) {
         // ブランド
         List<Brand> brands = new ArrayList<>();
-        brands.add(new Brand(1, "Yamaha"));
-        brands.add(new Brand(2, "Honda"));
-        brands.add(new Brand(3, "Suzuki"));
-        brands.add(new Brand(4, "Kawasaki"));
+        brands = service.getBrands();
 
         List<Motorcycle> motorcycles = new ArrayList<>();
-        motorcycles.add(new Motorcycle(1, "YZF-R1", 850, 4, 1, 1500000, "A high-performance sport bike.", "Yamaha", 1, null));
-        motorcycles.add(new Motorcycle(2, "CBR1000RR", 820, 4, 1, 1400000, "A powerful and agile sport bike.", "Honda", 1, null));
-        motorcycles.add(new Motorcycle(3, "GSX-R1000", 810, 4, 1, 1300000, "A lightweight and fast sport bike.", "Suzuki", 1, null));
-        motorcycles.add(new Motorcycle(4, "Ninja ZX-10R", 830, 4, 1, 1600000, "A cutting-edge sport bike with advanced technology.", "Kawasaki", 1, null));
+        motorcycles = service.getMotos();
 
         model.addAttribute("brands", brands);
         model.addAttribute("motorcycles", motorcycles);

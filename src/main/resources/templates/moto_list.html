@@ -62,9 +62,9 @@
                     <tbody>
                         <tr th:each="motorcycle : ${motorcycles}">
                             <th scope="row" th:text="${motorcycle.motoNo}"></th>
-                            <td th:text="${motorcycle.brandId}"></td>
+                            <td th:text="${motorcycle.brandId.brandName}"></td>
                             <td th:text="${motorcycle.motoName}"></td>
-                            <td th:text="${motorcycle.cylinder}"></td>
+                            <td th:text="${motorcycle.cooling} + ${motorcycle.cylinder}"></td>
                             <td th:text="|¥${#numbers.formatInteger(motorcycle.price, 3, 'COMMA')}|"></td>
                             <td th:text="${motorcycle.comment}"></td>
                         </tr>
