@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import lombok.extern.slf4j.Slf4j;
 import ooo.klae.sample.motocatalog.beans.Brand;
 import ooo.klae.sample.motocatalog.beans.Motorcycle;
+import ooo.klae.sample.motocatalog.beans.SearchCondition;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,7 +40,8 @@ public class MotosController {
         brands = service.getBrands();
 
         List<Motorcycle> motorcycles = new ArrayList<>();
-        motorcycles = service.getMotos();
+        SearchCondition condition = new SearchCondition();
+        motorcycles = service.getMotos(condition);
 
         model.addAttribute("brands", brands);
         model.addAttribute("motorcycles", motorcycles);

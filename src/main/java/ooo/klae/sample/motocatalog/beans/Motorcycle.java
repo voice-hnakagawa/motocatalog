@@ -2,6 +2,8 @@ package ooo.klae.sample.motocatalog.beans;
 
 import java.time.LocalDateTime;
 
+import org.springframework.cglib.core.Local;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,7 +22,7 @@ public class Motorcycle {
     private Brand brandId;
     private int version;
     private LocalDateTime insDt;
-    // private String insDt;
+    private LocalDateTime updDt;
 
     public void setMotoNo(int motoNo) {
         this.motoNo = motoNo;
