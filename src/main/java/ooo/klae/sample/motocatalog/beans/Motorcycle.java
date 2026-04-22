@@ -2,7 +2,7 @@ package ooo.klae.sample.motocatalog.beans;
 
 import java.time.LocalDateTime;
 
-import org.springframework.cglib.core.Local;
+// import org.springframework.cglib.core.Local;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
