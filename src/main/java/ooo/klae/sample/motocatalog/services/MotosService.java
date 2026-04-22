@@ -9,7 +9,7 @@ import ooo.klae.sample.motocatalog.mappers.MotorcycleMapper;
 
 import ooo.klae.sample.motocatalog.beans.Brand;
 import ooo.klae.sample.motocatalog.mappers.BrandMapper;
-import ooo.klae.sample.motocatalog.beans.SearchCondition;
+import ooo.klae.sample.motocatalog.beans.SearchForm;
 
 @Service
 public class MotosService {
@@ -21,7 +21,7 @@ public class MotosService {
     @Autowired
     BrandMapper brandMapper;
 
-    public List<Motorcycle> getMotos(SearchCondition condition) {
+    public List<Motorcycle> getMotos(SearchForm condition) {
         return motorcycleMapper.selectByCondition(condition);
     }
 
