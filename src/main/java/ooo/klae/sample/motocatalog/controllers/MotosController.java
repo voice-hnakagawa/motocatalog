@@ -122,7 +122,7 @@ public class MotosController {
     }
 
     @PostMapping("/motos/save")
-    public String save(@ModelAttribute("motoForm") MotoForm motoForm, BindingResult result) {
+    public String save(@ModelAttribute("motoForm") MotoForm motoForm, BindingResult result, Model model) {
         try {
             log.info("保存する {}", motoForm);
             Motorcycle motorcycle = new Motorcycle();
@@ -134,6 +134,7 @@ public class MotosController {
 
             return "redirect:/motos";
         } catch (OptimisticLockingFailureException e) {
+            this.setBrands(model);
             result.addError(new ObjectError("global", e.getMessage()));
             return "moto";
         }
