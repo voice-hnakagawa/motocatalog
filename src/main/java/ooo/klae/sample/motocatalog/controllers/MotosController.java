@@ -1,5 +1,6 @@
 package ooo.klae.sample.motocatalog.controllers;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import ooo.klae.sample.motocatalog.forms.MotoForm;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -87,10 +93,35 @@ public class MotosController {
         return "moto_list";
     }
 
+    /**
+     * バイクの更新画面に遷移する
+     * @param motoNo バイク番号
+     * @param motoForm バイクの更新用のフォームクラス
+     * @param model モデルクラス
+     * @return
+     */
     @GetMapping("/motos/{motoNo}")
-    public String initUpdate(Model model) {
+    public String initUpdate(@PathVariable("motoNo") int motoNo, @ModelAttribute("motoForm") MotoForm motoForm, Model model) {
         this.setBrands(model);
+
+        Motorcycle motorcycle = service.getMotos(motoNo);
+        // model.addAttribute("motorcycle", motorcycle);
+        BeanUtils.copyProperties(motorcycle, motoForm);
+
         return "moto";
+    }
+
+    @PostMapping("/motos/save")
+    public String save(@ModelAttribute("motoForm") MotoForm motoForm) {
+        log.info("保存する {}", motoForm);
+        Motorcycle motorcycle = new Motorcycle();
+        BeanUtils.copyProperties(motoForm, motorcycle);
+        motorcycle.setBrandId(new Brand(motoForm.getBrandId(), null));
+        int cnt = service.save(motorcycle);
+
+        log.info("保存件数: {}", cnt);
+
+        return "redirect:/motos";
     }
 
     /**
