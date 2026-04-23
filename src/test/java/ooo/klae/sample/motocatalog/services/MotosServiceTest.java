@@ -223,4 +223,35 @@ public class MotosServiceTest {
         assertThat(after.getMotoName()).isEqualTo("motomoto");
         assertThat(after.getVersion()).isEqualTo(before.getVersion() + 1);
     }
+
+    @DisplayName("バイク情報登録")
+    @Test
+    @Transactional
+    @Rollback
+    void test012() {
+        Motorcycle moto_before = new Motorcycle();
+        moto_before.setMotoName("test");
+        moto_before.setSeatHeight(100);
+        moto_before.setCylinder(1);
+        moto_before.setCooling("空冷");
+        moto_before.setPrice(100000);
+        moto_before.setComment("テスト用のバイク");
+        moto_before.setBrandId(service.getBrands().get(0)); // Yamaha
+
+        service.save(moto_before);
+
+        Motorcycle moto_after = service.getMotos(moto_before.getMotoNo());
+
+        assertThat(moto_after.getMotoName()).isEqualTo("test");
+        assertThat(moto_after.getSeatHeight()).isEqualTo(100);
+        assertThat(moto_after.getCylinder()).isEqualTo(1);
+        assertThat(moto_after.getCooling()).isEqualTo("空冷");
+        assertThat(moto_after.getPrice()).isEqualTo(100000);
+        assertThat(moto_after.getComment()).isEqualTo("テスト用のバイク");
+        assertThat(moto_after.getBrandId().getBrandId()).isEqualTo(service.getBrands().get(0).getBrandId());
+        assertThat(moto_before.getMotoNo()).isGreaterThan(0);
+        // assertThat(moto_after.getInsDt().format(dtFormatter)).isEqualTo(moto_after.getInsDt().format(dtFormatter));
+        assertThat(moto_after.getVersion()).isEqualTo(1);
+        // assertThat(moto_after.getVersion()).isEqualTo(moto_before.getVersion() + 1);
+    }
 }

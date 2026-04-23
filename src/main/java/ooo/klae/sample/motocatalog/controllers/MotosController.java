@@ -121,6 +121,22 @@ public class MotosController {
         return "moto";
     }
 
+    /**
+     * バイクの登録
+     * 
+     * @param motoNo   バイク番号
+     * @param motoForm バイクの登録用のフォームクラス
+     * @param model    モデルクラス
+     * @return
+     */
+    @GetMapping("/motos/new")
+    public String initNew(@ModelAttribute("motoForm") MotoForm motoForm,
+            Model model) {
+        this.setBrands(model);
+        
+        return "moto";
+    }
+
     @PostMapping("/motos/save")
     public String save(@ModelAttribute("motoForm") MotoForm motoForm, BindingResult result, Model model) {
         try {
