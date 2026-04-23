@@ -11,6 +11,8 @@ import ooo.klae.sample.motocatalog.beans.Motorcycle;
 import ooo.klae.sample.motocatalog.beans.SearchForm;
 
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
@@ -46,8 +48,13 @@ public class MotosController {
      * @return
      */
     @GetMapping("/motos")
-    public String motos(SearchForm form, Model model) {
+    public String motos(@Validated SearchForm form, BindingResult result, Model model) {
         log.info("呼ばれた {}", form);
+        if(result.hasErrors()) {
+            // log.info("バリデーションエラー: {}", result.getAllErrors());
+            return "moto_list";
+        }
+
         // ブランド
         this.setBrands(model);
 

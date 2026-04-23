@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title th:text="#{site.title}"></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
@@ -13,7 +13,7 @@
     <!-- As a heading -->
     <nav class="navbar navbar-dark bg-dark mb-3">
         <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1">バイク管理</span>
+            <span class="navbar-brand mb-0 h1" th:text="#{site.title}"></span>
         </div>
     </nav>
     <div class="container">
@@ -21,13 +21,13 @@
             <div class="row">
                 <div class="col">
                     <div class="mb-3">
-                        <label for="brand" class="form-label">バイクメーカー</label>
+                        <label for="brand" class="form-label" th:text="#{searchForm.brand}"></label>
                         <select class="form-select" th:field="${searchForm.brandId}" id="brand" aria-label="Default select example">
                             <!-- <option selected>Honda</option>
                         <option value="1">Kawasaki</option>
                         <option value="2">Yamaha</option>
                         <option value="3">Suzuki</option> -->
-                            <option value="">選択してください</option>
+                            <option value="" th:text="#{searchForm.brand.placeholder}"></option>
 
                             <option th:each="brand : ${brands}" th:value="${brand.brandId}"
                                 th:text="${brand.brandName}">
@@ -37,16 +37,17 @@
                 </div>
                 <div class="col">
                     <div class="mb-3">
-                        <label for="keyword" class="form-label">キーワード</label>
+                        <label for="keyword" class="form-label" th:text="#{searchForm.keyword}"></label>
                         <input type="text" class="form-control" th:field="${searchForm.keyword}" id="keyword" placeholder="車名もしくはコメントの一部を入力してください">
+                        <div th:errors="${searchForm.keyword}" class="text-danger"></div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col d-flex flex-row-reverse">
-                    <button type="button" class="btn btn-primary">新規</button>
-                    <a th:href="@{/motos/reset}" class="btn btn-secondary ms-1 me-1">リセット</a>
-                    <button type="submit" class="btn btn-success">検索</button>
+                    <button type="button" class="btn btn-primary" th:text="#{searchForm.new}"></button>
+                    <a th:href="@{/motos/reset}" class="btn btn-secondary ms-1 me-1" th:text="#{searchForm.reset}"></a>
+                    <button type="submit" class="btn btn-success" th:text="#{searchForm.search}"></button>
                 </div>
             </div>
         </form>
@@ -55,12 +56,12 @@
                 <table class="table table-dark table-striped">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">メーカー</th>
-                            <th scope="col">車名</th>
-                            <th scope="col">エンジン</th>
-                            <th scope="col">価格</th>
-                            <th scope="col">コメント</th>
+                            <th scope="col" th:text="#{table.no}"></th>
+                            <th scope="col" th:text="#{table.brand}"></th>
+                            <th scope="col" th:text="#{table.model}"></th>
+                            <th scope="col" th:text="#{table.engine}"></th>
+                            <th scope="col" th:text="#{table.price}"></th>
+                            <th scope="col" th:text="#{table.comment}"></th>
                         </tr>
                     </thead>
                     <tbody>
