@@ -30,6 +30,9 @@
       m_motorcycle.price,
       m_motorcycle.comment,
       m_motorcycle.brand_id,
+      m_motorcycle.version,
+      m_motorcycle.ins_dt,
+      m_motorcycle.upd_dt,
       m_brand.brand_name
     FROM
       m_motorcycle

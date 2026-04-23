@@ -2,6 +2,7 @@ package ooo.klae.sample.motocatalog.controllers;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +14,7 @@ import ooo.klae.sample.motocatalog.beans.SearchForm;
 
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -34,22 +36,26 @@ public class MotosController {
     @Autowired
     MotosService service;
 
-    // private static final Logger log = LoggerFactory.getLogger(MotosController.class);
+    // private static final Logger log =
+    // LoggerFactory.getLogger(MotosController.class);
 
     /**
      * テスト用のコントローラー
+     * 
      * @param name
      * @param model
      * @return
      */
     @RequestMapping("/hello")
-    public String hello(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
+    public String hello(@RequestParam(name = "name", required = false, defaultValue = "World") String name,
+            Model model) {
         model.addAttribute("name", name);
         return "test";
     }
 
     /**
      * バイク一覧画面に遷移する
+     * 
      * @param form
      * @param model
      * @return
@@ -57,7 +63,7 @@ public class MotosController {
     @GetMapping("/motos")
     public String motos(@Validated SearchForm form, BindingResult result, Model model) {
         log.info("呼ばれた {}", form);
-        if(result.hasErrors()) {
+        if (result.hasErrors()) {
             // log.info("バリデーションエラー: {}", result.getAllErrors());
             return "moto_list";
         }
@@ -80,13 +86,15 @@ public class MotosController {
 
     /**
      * 検索条件をリセットしてバイク一覧画面に遷移する
+     * 
      * @param form
      * @param model
      * @return
      */
     @GetMapping("/motos/reset")
     public String reset(SearchForm form, Model model) {
-        // why not just redirect back to /motos without any uri parameters? r we trolling?
+        // why not just redirect back to /motos without any uri parameters? r we
+        // trolling?
         this.setBrands(model);
 
         form = new SearchForm();
@@ -95,13 +103,15 @@ public class MotosController {
 
     /**
      * バイクの更新画面に遷移する
-     * @param motoNo バイク番号
+     * 
+     * @param motoNo   バイク番号
      * @param motoForm バイクの更新用のフォームクラス
-     * @param model モデルクラス
+     * @param model    モデルクラス
      * @return
      */
     @GetMapping("/motos/{motoNo}")
-    public String initUpdate(@PathVariable("motoNo") int motoNo, @ModelAttribute("motoForm") MotoForm motoForm, Model model) {
+    public String initUpdate(@PathVariable("motoNo") int motoNo, @ModelAttribute("motoForm") MotoForm motoForm,
+            Model model) {
         this.setBrands(model);
 
         Motorcycle motorcycle = service.getMotos(motoNo);
@@ -112,20 +122,27 @@ public class MotosController {
     }
 
     @PostMapping("/motos/save")
-    public String save(@ModelAttribute("motoForm") MotoForm motoForm) {
-        log.info("保存する {}", motoForm);
-        Motorcycle motorcycle = new Motorcycle();
-        BeanUtils.copyProperties(motoForm, motorcycle);
-        motorcycle.setBrandId(new Brand(motoForm.getBrandId(), null));
-        int cnt = service.save(motorcycle);
+    public String save(@ModelAttribute("motoForm") MotoForm motoForm, BindingResult result) {
+        try {
+            log.info("保存する {}", motoForm);
+            Motorcycle motorcycle = new Motorcycle();
+            BeanUtils.copyProperties(motoForm, motorcycle);
+            motorcycle.setBrandId(new Brand(motoForm.getBrandId(), null));
+            int cnt = service.save(motorcycle);
 
-        log.info("保存件数: {}", cnt);
+            log.info("保存件数: {}", cnt);
 
-        return "redirect:/motos";
+            return "redirect:/motos";
+        } catch (OptimisticLockingFailureException e) {
+            result.addError(new ObjectError("global", e.getMessage()));
+            return "moto";
+        }
+
     }
 
     /**
      * ブランドのリストを取得してモデルにセットする
+     * 
      * @param model
      */
     private void setBrands(Model model) {
