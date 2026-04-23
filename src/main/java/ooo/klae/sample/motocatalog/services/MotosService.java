@@ -11,6 +11,8 @@ import ooo.klae.sample.motocatalog.beans.Brand;
 import ooo.klae.sample.motocatalog.mappers.BrandMapper;
 import ooo.klae.sample.motocatalog.beans.SearchForm;
 
+import org.springframework.dao.OptimisticLockingFailureException;
+
 @Service
 public class MotosService {
     
@@ -33,7 +35,16 @@ public class MotosService {
         return brandMapper.selectAll();
     }
 
+    /**
+     *  バイク情報を更新する
+     * @param motorcycle 更新するバイク情報
+     * @return 更新件数
+     */
     public int save(Motorcycle motorcycle) {
-        return motorcycleMapper.update(motorcycle);
+        int cnt = motorcycleMapper.update(motorcycle);
+        if (cnt == 0) {
+            throw new OptimisticLockingFailureException("楽観的なロックに失敗しました。データは他のユーザーによって更新されました。");
+        }
+        return cnt;
     }
 }
