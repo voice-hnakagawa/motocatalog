@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,6 +65,7 @@ public class MotosController {
 
         // model.addAttribute("brands", brands);
         model.addAttribute("motorcycles", motorcycles);
+        model.addAttribute("datetime", LocalDateTime.now());
 
         // log.info("motorcycles: {}", motorcycles);
 
