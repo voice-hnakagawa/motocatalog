@@ -16,6 +16,8 @@
             <span class="navbar-brand mb-0 h1" th:text="#{site.title}"></span>
         </div>
     </nav>
+
+    <div th:text="${#temporals.format(datetime, 'dd/MM/yyyy HH:mm:ss')}"></div>
     <div class="container">
         <form method="get" th:action="@{/motos}">
             <div class="row">
@@ -70,7 +72,7 @@
                             <td th:text="${motorcycle.brandId.brandName}"></td>
                             <td th:text="${motorcycle.motoName}"></td>
                             <td th:text="${motorcycle.cooling} + ${motorcycle.cylinder}"></td>
-                            <td th:text="|¥${#numbers.formatInteger(motorcycle.price, 3, 'COMMA')}|"></td>
+                            <td th:text="|¥*{#numbers.formatInteger(motorcycle.price, 3, 'COMMA')}|"></td>
                             <td th:text="${motorcycle.comment}"></td>
                         </tr>
                     </tbody>
