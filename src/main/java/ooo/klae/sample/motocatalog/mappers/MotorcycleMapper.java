@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.Delete;
 
 import ooo.klae.sample.motocatalog.beans.Motorcycle;
-import ooo.klae.sample.motocatalog.beans.SearchForm;
+import ooo.klae.sample.motocatalog.forms.SearchForm;
 
 @Mapper
 public interface MotorcycleMapper {

@@ -9,9 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import ooo.klae.sample.motocatalog.beans.Motorcycle;
+import ooo.klae.sample.motocatalog.forms.SearchForm;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
-import ooo.klae.sample.motocatalog.beans.SearchForm;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

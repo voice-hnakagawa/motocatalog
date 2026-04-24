@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import lombok.extern.slf4j.Slf4j;
 import ooo.klae.sample.motocatalog.beans.Brand;
 import ooo.klae.sample.motocatalog.beans.Motorcycle;
-import ooo.klae.sample.motocatalog.beans.SearchForm;
 
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import ooo.klae.sample.motocatalog.forms.MotoForm;
+import ooo.klae.sample.motocatalog.forms.SearchForm;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
