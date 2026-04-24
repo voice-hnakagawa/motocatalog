@@ -53,7 +53,6 @@
                         class="h-9 border border-zinc-200 bg-white text-zinc-800 text-sm rounded-lg px-3 focus:outline-none focus:ring-2 focus:ring-indigo-100 focus:border-indigo-400 transition"
                         th:field="${searchForm.keyword}" id="keyword"
                         placeholder="車名もしくはコメントの一部を入力してください">
-                    <div th:errors="${searchForm.keyword}" class="text-red-400 text-xs -mt-0.5"></div>
                 </div>
 
                 <div class="flex items-center gap-2 pb-0">
@@ -72,6 +71,7 @@
                 </div>
 
             </div>
+            <div th:errors="${searchForm.keyword}" class="pt-2 text-xs text-red-500"></div>
         </form>
 
         <div class="py-6 overflow-x-auto">
