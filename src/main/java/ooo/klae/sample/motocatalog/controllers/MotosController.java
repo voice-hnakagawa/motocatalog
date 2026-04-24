@@ -121,8 +121,31 @@ public class MotosController {
         return "moto";
     }
 
+    /**
+     * バイクの登録
+     * 
+     * @param motoNo   バイク番号
+     * @param motoForm バイクの登録用のフォームクラス
+     * @param model    モデルクラス
+     * @return
+     */
+    @GetMapping("/motos/new")
+    public String initNew(@ModelAttribute("motoForm") MotoForm motoForm,
+            Model model) {
+        this.setBrands(model);
+        
+        return "moto";
+    }
+
+    /**
+     * バイクの登録・更新処理
+     * @param motoForm バイクの登録・更新用のフォームクラス
+     * @param result バリデーションの結果
+     * @param model モデルクラス
+     * @return 登録・更新後の画面
+     */
     @PostMapping("/motos/save")
-    public String save(@ModelAttribute("motoForm") MotoForm motoForm, BindingResult result) {
+    public String save(@ModelAttribute("motoForm") MotoForm motoForm, BindingResult result, Model model) {
         try {
             log.info("保存する {}", motoForm);
             Motorcycle motorcycle = new Motorcycle();
@@ -134,6 +157,34 @@ public class MotosController {
 
             return "redirect:/motos";
         } catch (OptimisticLockingFailureException e) {
+            this.setBrands(model);
+            result.addError(new ObjectError("global", e.getMessage()));
+            return "moto";
+        }
+
+    }
+
+    /**
+     * バイクの削除処理
+     * @param motoForm バイクの削除用のフォームクラス
+     * @param result バリデーションの結果
+     * @param model モデルクラス
+     * @return 削除後の画面
+     */
+    @PostMapping("/motos/delete")
+    public String delete(@ModelAttribute("motoForm") MotoForm motoForm, BindingResult result, Model model) {
+        try {
+            log.info("削除する {}", motoForm);
+            Motorcycle motorcycle = new Motorcycle();
+            BeanUtils.copyProperties(motoForm, motorcycle);
+            motorcycle.setBrandId(new Brand(motoForm.getBrandId(), null));
+            int cnt = service.delete(motorcycle);
+
+            log.info("削除件数: {}", cnt);
+
+            return "redirect:/motos";
+        } catch (OptimisticLockingFailureException e) {
+            this.setBrands(model);
             result.addError(new ObjectError("global", e.getMessage()));
             return "moto";
         }
