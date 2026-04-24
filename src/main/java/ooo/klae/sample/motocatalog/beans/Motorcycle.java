@@ -12,23 +12,23 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor  
 public class Motorcycle {
-    private int motoNo;
+    private Integer motoNo;
     private String motoName;
-    private int seatHeight;
-    private int cylinder;
+    private Integer seatHeight;
+    private Integer cylinder;
     private String cooling;
-    private int price;
+    private Integer price;
     private String comment;
     private Brand brandId;
-    private int version;
+    private Integer version;
     private LocalDateTime insDt;
     private LocalDateTime updDt;
 
-    public void setMotoNo(int motoNo) {
+    public void setMotoNo(Integer motoNo) {
         this.motoNo = motoNo;
     }
 
-    public int getMotoNo() {
+    public Integer getMotoNo() {
         return motoNo;
     }
 

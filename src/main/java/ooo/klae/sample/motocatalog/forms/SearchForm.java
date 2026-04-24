@@ -1,4 +1,4 @@
-package ooo.klae.sample.motocatalog.beans;
+package ooo.klae.sample.motocatalog.forms;
 
 import jakarta.validation.constraints.Size;
 import lombok.Data;

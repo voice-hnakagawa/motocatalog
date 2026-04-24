@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ooo.klae.sample.motocatalog.beans.Motorcycle;
+import ooo.klae.sample.motocatalog.forms.SearchForm;
 import ooo.klae.sample.motocatalog.mappers.MotorcycleMapper;
 
 import ooo.klae.sample.motocatalog.beans.Brand;
 import ooo.klae.sample.motocatalog.mappers.BrandMapper;
-import ooo.klae.sample.motocatalog.beans.SearchForm;
 
 import java.util.Locale;
 
