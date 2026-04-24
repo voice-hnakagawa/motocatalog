@@ -254,4 +254,15 @@ public class MotosServiceTest {
         assertThat(moto_after.getVersion()).isEqualTo(1);
         // assertThat(moto_after.getVersion()).isEqualTo(moto_before.getVersion() + 1);
     }
+
+    @DisplayName("バイク情報削除")
+    @Test
+    @Transactional
+    @Rollback
+    void test013() {
+        Motorcycle before = service.getMotos(1);
+        service.delete(before);
+        Motorcycle after = service.getMotos(1);
+        assertThat(after).isNull();
+    }
 }
