@@ -3,6 +3,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.Delete;
 
 import ooo.klae.sample.motocatalog.beans.Motorcycle;
 import ooo.klae.sample.motocatalog.beans.SearchForm;
@@ -41,4 +42,11 @@ public interface MotorcycleMapper {
      */
     public int insert(Motorcycle motorcycle);
     
+    /**
+     * モーターサイクルの削除
+     * @param motorcycle 削除するモーターサイクルの情報
+     * @return 削除件数
+     */
+    @Delete("DELETE FROM m_motorcycle WHERE moto_no = #{motoNo} AND version = #{version}")
+    public int delete(Motorcycle motorcycle);
 }

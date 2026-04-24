@@ -72,7 +72,8 @@
             </div>
             <div class="row mt-3">
                 <div class="col text-end">
-                    <button class="btn btn-primary" type="submit" th:text="#{moto.update}"></button>
+                    <button class="btn btn-primary" type="submit" th:text="#{moto.update}" th:formaction="@{/motos/save}"></button>
+                    <button class="btn btn-danger" type="submit" th:text="#{moto.delete}" th:formaction="@{/motos/delete}"  th:if="${motoForm.motoNo}"></button>
                 </div>
             </div>
         </form>
