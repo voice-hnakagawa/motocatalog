@@ -18,3 +18,10 @@ CREATE TABLE m_brand (
     brand_id INT NOT NULL PRIMARY KEY COMMENT 'ブランドID',
     brand_name VARCHAR(255) COMMENT 'ブランド名'
 ) COMMENT 'ブランドマスタ';
+
+DROP TABLE IF EXISTS m_user;
+CREATE TABLE m_user (
+    -- user_id INT NOT NULL PRIMARY KEY COMMENT 'ユーザID',
+    username VARCHAR(255) NOT NULL PRIMARY KEY COMMENT 'ユーザ名',
+    password VARCHAR(255) COMMENT 'パスワード'
+) COMMENT 'ユーザーマスタ';

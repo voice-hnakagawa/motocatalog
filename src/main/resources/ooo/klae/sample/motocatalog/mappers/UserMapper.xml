@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ooo.klae.sample.motocatalog.mappers.UserMapper">
+    <resultMap id="userResultMap" type="ooo.klae.sample.motocatalog.beans.User">
+        <id property="username" column="user_name"/>
+        <result property="password" column="password"/>
+    </resultMap>
+    <select id="selectByUsername" resultMap="userResultMap">
+        SELECT
+            username,
+            password
+        FROM
+            m_user
+        WHERE
+            username = #{username}
+    </select>
+</mapper>

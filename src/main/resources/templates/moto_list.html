@@ -14,6 +14,9 @@
     <nav class="navbar navbar-dark bg-dark mb-3">
         <div class="container-fluid">
             <span class="navbar-brand mb-0 h1" th:text="#{site.title}"></span>
+            <form th:action="@{/logout}" method="post" class="d-flex">
+                <button type="submit" class="btn btn-outline-light" th:text="#{page.logout}"></button>
+            </form>
         </div>
     </nav>
 
@@ -76,9 +79,12 @@
                         <tr th:each="motorcycle : ${motorcycles}">
                             <th scope="row" th:text="${motorcycle.motoNo}"></th>
                             <td th:text="${motorcycle.brandId.brandName}"></td>
-                            <td><a th:href="@{/motos/{id}(id=${motorcycle.motoNo})}" th:text="${motorcycle.motoName}"></a></td>
-                            <td><span th:text="${motorcycle.cooling}"></span><span th:text="${motorcycle.cylinder}"></span></td>
-                            <td class="text-end"><span th:if="${motorcycle.price != null}" th:text="|¥${#numbers.formatInteger(motorcycle.price, 3, 'COMMA')}|"></span></td>
+                            <td><a th:href="@{/motos/{id}(id=${motorcycle.motoNo})}"
+                                    th:text="${motorcycle.motoName}"></a></td>
+                            <td><span th:text="${motorcycle.cooling}"></span><span
+                                    th:text="${motorcycle.cylinder}"></span></td>
+                            <td class="text-end"><span th:if="${motorcycle.price != null}"
+                                    th:text="|¥${#numbers.formatInteger(motorcycle.price, 3, 'COMMA')}|"></span></td>
                             <td th:text="${motorcycle.comment}"></td>
                         </tr>
                     </tbody>
