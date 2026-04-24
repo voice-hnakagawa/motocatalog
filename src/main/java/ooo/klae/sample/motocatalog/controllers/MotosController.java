@@ -117,6 +117,7 @@ public class MotosController {
         Motorcycle motorcycle = service.getMotos(motoNo);
         // model.addAttribute("motorcycle", motorcycle);
         BeanUtils.copyProperties(motorcycle, motoForm);
+        motoForm.setBrandId(motorcycle.getBrandId().getBrandId());
 
         return "moto";
     }
@@ -145,9 +146,14 @@ public class MotosController {
      * @return 登録・更新後の画面
      */
     @PostMapping("/motos/save")
-    public String save(@ModelAttribute("motoForm") MotoForm motoForm, BindingResult result, Model model) {
+    public String save(@Validated MotoForm motoForm, BindingResult result, Model model) {
+        this.setBrands(model);
         try {
             log.info("保存する {}", motoForm);
+            if (result.hasErrors()) {
+                this.setBrands(model);
+                return "moto";
+            }
             Motorcycle motorcycle = new Motorcycle();
             BeanUtils.copyProperties(motoForm, motorcycle);
             motorcycle.setBrandId(new Brand(motoForm.getBrandId(), null));
@@ -157,7 +163,7 @@ public class MotosController {
 
             return "redirect:/motos";
         } catch (OptimisticLockingFailureException e) {
-            this.setBrands(model);
+            // this.setBrands(model);
             result.addError(new ObjectError("global", e.getMessage()));
             return "moto";
         }

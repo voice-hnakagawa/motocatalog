@@ -1,7 +1,12 @@
 package ooo.klae.sample.motocatalog.forms;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
-import ooo.klae.sample.motocatalog.beans.Brand;
+// import ooo.klae.sample.motocatalog.beans.Brand;
 
 /**
  * バイクの登録・更新用のフォームクラス
@@ -9,12 +14,29 @@ import ooo.klae.sample.motocatalog.beans.Brand;
 @Data
 public class MotoForm {
     private int motoNo;
+
+    @NotBlank
+    @Size(min = 1, max = 255)
     private String motoName;
-    private int seatHeight;
-    private int cylinder;
+
+    @Min(0)
+    @Max(1000)
+    private Integer seatHeight;
+
+    @Max(10)
+    private Integer cylinder;
+
+    @Size(max = 20)
     private String cooling;
-    private int price;
+
+    @Min(0)
+    private Integer price;
+
+    @Size(max = 255)
     private String comment;
-    private int brandId;
-    private int version;
+
+    @NotNull
+    private Integer brandId;
+
+    private Integer version;
 }
